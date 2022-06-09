@@ -66,5 +66,7 @@
       "**/hardhat-ts/**"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "hardhat-console": "^1.0.0"
+  }
 }
