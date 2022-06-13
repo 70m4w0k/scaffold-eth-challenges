@@ -9,7 +9,10 @@ contract Staker {
 
   mapping(address => uint256) public balances;
   
+  // use 30 seconds to test
+  // uint256 public deadline = block.timestamp + 30 seconds;
   uint256 public deadline = block.timestamp + 72 hours;
+
   uint256 public constant threshold = 1 ether;
   bool public openForWithdraw;
   bool public isExecuted;
@@ -25,6 +28,11 @@ contract Staker {
     _;
   }
 
+  modifier beforeDeadline() {
+    require(block.timestamp <= deadline, "Deadline is passed");
+    _;
+  }
+
   modifier notCompleted() {
     bool completed = exampleExternalContract.completed();
     require(!completed, "Completed !");
@@ -34,7 +42,7 @@ contract Staker {
   // Collect funds in a payable `stake()` function and track individual `balances` with a mapping:
   //  ( make sure to add a `Stake(address,uint256)` event and emit it for the frontend <List/> display )
 
-  function stake() public payable {
+  function stake() public payable beforeDeadline {
     balances[msg.sender] += msg.value;
     emit Stake(msg.sender, msg.value);
   }

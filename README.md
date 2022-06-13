@@ -76,9 +76,9 @@ uint256 public constant threshold = 1 ether;
 
 #### 🥅 Goals
 
-- [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
-- [ ] Is your `balance` correctly tracked?
-- [ ] Do you see the events in the `Staker UI` tab?
+- ✅ Do you see the balance of the `Staker` contract go up when you `stake()`?
+- ✅ Is your `balance` correctly tracked?
+- ✅ Do you see the events in the `Staker UI` tab?
 
 
 ---
@@ -111,9 +111,9 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 > 👩‍💻 You can call `yarn deploy --reset` any time you want a fresh contract
 
 #### 🥅 Goals
-- [ ] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
-- [ ] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
-- [ ] If you don't `stake()` enough can you `withdraw()` your funds?
+- ✅ Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
+- ✅ If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
+- ✅ If you don't `stake()` enough can you `withdraw()` your funds?
 
 
 ---
@@ -127,20 +127,20 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 #### 🥅 Goals
-- [ ] If you send ETH directly to the contract address does it update your `balance`?
+- ✅ If you send ETH directly to the contract address does it update your `balance`?
 
 ---
 
 ## ⚔️ Side Quests
-- [ ] Can execute get called more than once, and is that okay?
-- [ ] Can you stake and withdraw freely after the `deadline`, and is that okay?
-- [ ] What are other implications of *anyone* being able to withdraw for someone?
+- ❌ Can execute get called more than once, and is that okay? -> Nope, only once
+- ❌ Can you stake and withdraw freely after the `deadline`, and is that okay? -> withdraw yes, stake nope
+- ✅ What are other implications of *anyone* being able to withdraw for someone? -> possibility of siphoning the contract
 
 ---
 
 ## 🐸 It's a trap!
-- [ ] Make sure funds can't get trapped in the contract! **Try sending funds after you have executed! What happens?**
-- [ ] Try to create a [modifier](https://solidity-by-example.org/function-modifier/) called `notCompleted`. It will check that `ExampleExternalContract` is not completed yet. Use it to protect your `execute` and `withdraw` functions.
+- ✅ Make sure funds can't get trapped in the contract! **Try sending funds after you have executed! What happens?** -> transaction reverts
+- ✅ Try to create a [modifier](https://solidity-by-example.org/function-modifier/) called `notCompleted`. It will check that `ExampleExternalContract` is not completed yet. Use it to protect your `execute` and `withdraw` functions.
 
 ---
 
@@ -161,6 +161,8 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
  > 📝 If you plan on submitting this challenge, be sure to set your ```deadline``` to at least ```block.timestamp + 72 hours```
 
  >  🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
+
+ ✅ https://ropsten.etherscan.io/address/0xadd8ea88576e7dd64809c39716c5dc30eab32b25
 
 ---
 
@@ -186,6 +188,8 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
 
+✅ https://ambiguous-pollution.surge.sh/
+
 ---
 ### Checkpoint 7: 📜 Contract Verification
 
@@ -194,6 +198,8 @@ Update the api-key in packages/hardhat/package.json file. You can get your key [
 ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
 > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+✅ https://ropsten.etherscan.io/address/0xadd8ea88576e7dd64809c39716c5dc30eab32b25#code
 
 ---
 
